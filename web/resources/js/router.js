@@ -1,32 +1,38 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue from "vue";
+import VueRouter from "vue-router";
 
 // ページコンポーネントをインポートする
-import PhotoList from './pages/PhotoList.vue'
-import Login from './pages/Login.vue'
+import PhotoList from "./pages/PhotoList.vue";
+import Login from "./pages/Login.vue";
+// import Footer from "./components/Footer.vue";
+// import Navbar from "./components/Navbar.Vue";
 
 // VueRouterプラグインを使用する
 // これによって<RouterView />コンポーネントなどを使うことができる
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 // パスとコンポーネントのマッピング
-const routes=[
+const routes = [
     {
-        path:'/',
-        component:PhotoList
+        path: "/",
+        component: PhotoList
     },
     {
-        path:'/login',
-        component:Login
+        path: "/login",
+        component: Login
     }
-]
+    // {
+    //     path: "/footer",
+    //     component: Footer
+    // }
+];
 
 // VueRouterインスタンスを作成する
 const router = new VueRouter({
-    mode: 'history',
+    mode: "history",
     routes
-})
+});
 
 // VueRouterインスタンスをエクスポートする
 // app.jsでインポートする為
-export default router
+export default router;
