@@ -4,7 +4,6 @@
       <Navbar />
     </header>
     <main>
-      <h1>この下にRouteView</h1>
       <div class="container">
         <RouterView />
       </div>
