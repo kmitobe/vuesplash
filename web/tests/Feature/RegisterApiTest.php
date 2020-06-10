@@ -12,9 +12,7 @@ class RegisterApiTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * A basic feature test example.
-     *
-     * @return void
+     * @test
      */
     public function should_新しいユーザーを作成して返却する()
     {
@@ -25,12 +23,13 @@ class RegisterApiTest extends TestCase
             'password_confirmation' => 'test1234',
         ];
 
-        $response = $this->json('POST',route('register'),$data);
-        
+        $response = $this->json('POST', route('register'), $data);
+
         $user = User::first();
-        $this->assertEquals($data['name'],$user->name);
+        $this->assertEquals($data['name'], $user->name);
+
         $response
             ->assertStatus(201)
-            ->assertJson(['name'=>$user->name]);
+            ->assertJson(['name' => $user->name]);
     }
 }

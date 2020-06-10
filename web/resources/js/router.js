@@ -4,6 +4,8 @@ import VueRouter from "vue-router";
 // ページコンポーネントをインポートする
 import PhotoList from "./pages/PhotoList.vue";
 import Login from "./pages/Login.vue";
+
+import store from "./store";
 // import Footer from "./components/Footer.vue";
 // import Navbar from "./components/Navbar.Vue";
 

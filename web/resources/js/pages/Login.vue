@@ -1,8 +1,8 @@
 <template>
   <div class="container--small">
     <ul class="tab">
-      <li class="tab__item" :class="{'tab__item--active':tab===1}" @click="tab=1">Login</li>
-      <li class="tab__item" :class="{'tab__item--active':tab===2}" @click="tab=2">Register</li>
+      <li class="tab__item" :class="{ 'tab__item--active': tab === 1 }" @click="tab = 1">Login</li>
+      <li class="tab__item" :class="{ 'tab__item--active': tab === 2 }" @click="tab = 2">Register</li>
     </ul>
     <!-- {{ tab }} -->
 
@@ -20,18 +20,18 @@
     </div>
     <div class="panel" v-show="tab === 2">
       <h1>Register</h1>
-      <form class="form" @submit.prevent="login">
+      <form class="form" @submit.prevent="register">
         <label for="username">Name</label>
         <input type="text" class="form__item" id="username" v-model="registerForm.name" />
         <label for="email">email</label>
         <input type="text" class="form__item" id="email" v-model="registerForm.email" />
         <label for="password">password</label>
-        <input type="text" class="form__item" id="password" v-model="registerForm.password" />
-        <label for="password">password(confirm)</label>
+        <input type="password" class="form__item" id="password" v-model="registerForm.password" />
+        <label for="password-confirmation">password(confirm)</label>
         <input
-          type="text"
+          type="password"
           class="form__item"
-          id="password-confirm"
+          id="password-confirmation"
           v-model="registerForm.password_confirmation"
         />
 
@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   data() {
     return {
@@ -61,11 +62,19 @@ export default {
     };
   },
   methods: {
-    login() {
+    async login() {
       console.log(this.loginForm);
     },
-    register() {
-      console.log(this.registerForm);
+    async register() {
+      // authストアのregisterアクションを呼び出す
+      try {
+        await this.$store.dispatch("auth/register", this.registerForm);
+      } catch (error) {
+        console.log(error);
+      }
+      // トップページ
+      this.$router.push("/");
+      // 確認の為コンソールに出力
     }
   }
 };

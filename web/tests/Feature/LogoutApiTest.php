@@ -11,13 +11,17 @@ class LogoutApiTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function SetUp():void
+    public function setUp(): void
     {
         parent::setUp();
+
         // テストユーザー作成
         $this->user = factory(User::class)->create();
     }
 
+    /**
+     * @test
+     */
     public function should_認証済みのユーザーをログアウトさせる()
     {
         $response = $this->actingAs($this->user)
