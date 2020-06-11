@@ -8,7 +8,7 @@
           Submit a photo
         </button>
       </div>
-      <span v-if="isLogin" class="navbar__item">ようこそ{{username}}</span>
+      <span v-if="isLogin" class="navbar__item">ようこそ{{username}}さん</span>
       <div v-else class="navbar__item">
         <RouterLink class="button button--link" to="/login">Login / Register</RouterLink>
       </div>

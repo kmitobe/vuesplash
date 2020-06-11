@@ -21,12 +21,15 @@ const routes = [
     },
     {
         path: "/login",
-        component: Login
+        component: Login,
+        beforeEnter(to, from, next) {
+            if (store.getters["auth/check"]) {
+                next("/");
+            } else {
+                next();
+            }
+        }
     }
-    // {
-    //     path: "/footer",
-    //     component: Footer
-    // }
 ];
 
 // VueRouterインスタンスを作成する
