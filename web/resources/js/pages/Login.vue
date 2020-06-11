@@ -63,18 +63,15 @@ export default {
   },
   methods: {
     async login() {
-      console.log(this.loginForm);
+      await this.$store.dispatch("auth/login", this.loginForm);
+      // トップページ
+      this.$router.push("/");
     },
     async register() {
       // authストアのregisterアクションを呼び出す
-      try {
-        await this.$store.dispatch("auth/register", this.registerForm);
-      } catch (error) {
-        console.log(error);
-      }
+      await this.$store.dispatch("auth/register", this.registerForm);
       // トップページ
       this.$router.push("/");
-      // 確認の為コンソールに出力
     }
   }
 };

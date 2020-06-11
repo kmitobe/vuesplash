@@ -4,7 +4,10 @@ const state = {
     user: null
 };
 
-const getters = {};
+const getters = {
+    check: state => !!state.user,
+    username: state => (state.user ? state.user.name : "")
+};
 
 const mutations = {
     setUser(state, user) {
@@ -14,12 +17,19 @@ const mutations = {
 
 const actions = {
     async register(context, data) {
-        console.log("auth.jsの関数");
-        console.log(data);
-
+        console.log("register");
         const response = await axios.post("/api/register", data);
-
         context.commit("setUser", response.data);
+    },
+    async login(context, data) {
+        console.log("login");
+        const response = await axios.post("/api/login", data);
+        context.commit("setUser", response.data);
+    },
+    async logout(context) {
+        console.log("logout");
+        const response = await axios.post("/api/logout");
+        context.commit("setUser", null);
     }
 };
 
