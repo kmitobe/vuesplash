@@ -1,6 +1,6 @@
+import Vue from "vue";
 // bootstrapをインポート
 import "./bootstrap";
-import Vue from "vue";
 // ルーティングの定義をインポートする
 import router from "./router";
 // ルートコンポーネントをインポートする

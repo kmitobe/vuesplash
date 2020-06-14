@@ -1,7 +1,10 @@
-import Axios from "axios";
+import axios from "axios";
+import { OK, UNPROCESSABLE_ENTITY } from "../util";
 
 const state = {
-    user: null
+    user: null,
+    apiStatus: null,
+    loginErrorMessages: null
 };
 
 const getters = {
@@ -12,6 +15,12 @@ const getters = {
 const mutations = {
     setUser(state, user) {
         state.user = user;
+    },
+    setApiStatus(state, status) {
+        state.apiStatus = status;
+    },
+    setLoginErrorMessages(state, messages) {
+        state.loginErrorMessages = messages;
     }
 };
 
@@ -23,8 +32,26 @@ const actions = {
     },
     async login(context, data) {
         console.log("login");
-        const response = await axios.post("/api/login", data);
-        context.commit("setUser", response.data);
+        context.commit("setApiStatus", null);
+        const response = await axios
+            .post("/api/login", data)
+            .catch(err => err.response || err);
+
+        if (response.status === OK) {
+            context.commit("setApiStatus", true);
+            context.commit("setUser", response.data);
+            return false;
+        }
+
+        context.commit("setApiStatus", false);
+
+        if (response.status === UNPROCESSABLE_ENTITY) {
+            context.commit("setLoginErrorMessages", response.data.errors);
+        } else {
+            context.commit("error/setCode", response.status, { root: true });
+        }
+
+        context.commit("error/setCode", response.status, { root: true });
     },
     async logout(context) {
         console.log("logout");
@@ -34,6 +61,7 @@ const actions = {
     async currentUser(context) {
         const response = await axios.get("/api/user");
         const user = response.data || null;
+        console.log(user);
         context.commit("setUser", user);
     }
 };
