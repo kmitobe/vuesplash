@@ -39,7 +39,6 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    // ★ メソッド追加
     protected function authenticated(Request $request, $user)
     {
         return $user;

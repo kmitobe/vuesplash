@@ -12,9 +12,10 @@ use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 
+
 class PhotoSubmitApiTest extends TestCase
 {
-    use RefreshDatabases;
+    use RefreshDatabase;
     // 事前処理(フィクスチャ)
     public function setUp(): void
     {
@@ -24,18 +25,18 @@ class PhotoSubmitApiTest extends TestCase
     /**
      *  @test
      */
-    public function shold_ファイルをアップロードできる()
+    public function should_ファイルをアップロードできる()
     {
         // S3 ではないストレージを使用する
         // storege/framework/testing
-        Storage::fake("s3");
+        Storage::fake("storage/framework/testing");
 
         // 画像を作成してAPIに送信するテスト
         $response = $this->actingAs($this->user)
             ->json("POST",route("photo.create"),[
                 
             // ダミーファイルを作成して送信している
-            "photo" => UploadedFile::fake()->image("photo.jpg"),
+            "photo" =>  UploadedFile::fake()->image("photo.jpg"),
         ]);
 
         // レスポンスが201(created)である事のテスト
@@ -57,12 +58,12 @@ class PhotoSubmitApiTest extends TestCase
     {
         // テーブルをdropすることによってテーブルエラーを起こし、テストの確認を行う
         Schema::drop("photos");
-        Storage::fake("s3");
+        Storage::fake("storage/framework/testing");
 
         $response = $this->actingAs($this->user)
             ->json("POST",route("photo.create"),[
             // ダミーファイルを作成して送信する
-            "photo" => UploadedFile::fake()->image("photo.jpg"),
+            $photo => UploadedFile::fake()->image("photo.jpg"),
         ]);
 
         // レスポンスが500（INTERNAL　SERVER ERROR）であること
