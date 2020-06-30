@@ -36,22 +36,22 @@ class PhotoController extends Controller
 
 
         // ファイルを保存する
-        $request->file('file')->store('');
+        // $request->file('file')->store('');
 
         // データベースエラー時にファイル削除を行う為
         // トランザクションを利用する
-        DB::beginTransaction();
+        // DB::beginTransaction();
 
         // コミット
-        try{
-            Auth::user()->photos()->save($photo);
-            DB::commit();
-        }catch(\Exception $exception){
-            DB::rollBack();
-            // DBとの不整合を避ける為アップロードしたファイルを削除
-            Storage::cloud()->delete($photo->filrname);
-            throw $exception;
-        }
+        // try{
+        //     Auth::user()->photos()->save($photo);
+        //     DB::commit();
+        // }catch(\Exception $exception){
+        //     DB::rollBack();
+        //     // DBとの不整合を避ける為アップロードしたファイルを削除
+        //     Storage::cloud()->delete($photo->filrname);
+        //     throw $exception;
+        // }
 
 
         // リソースの新規作成なので
