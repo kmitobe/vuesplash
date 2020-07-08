@@ -31,7 +31,6 @@ class PhotoController extends Controller
         // $extension = $request->photo->extension();
 
         // $photo = new Photo();
-
         // // インスタンス生成時にランダムに割り振られたID値と
         // // 本来の拡張子を組み合わせてファイル名とする
         // $photo->filename = $photo->id . "." . $extension;

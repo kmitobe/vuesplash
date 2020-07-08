@@ -23,11 +23,20 @@ class photo extends Model
             $this->setId();
         }
     }
-    // ランダムなID値をid属性に代入
+
+    /**
+     *ランダムなID値をid属性に代入
+     */ 
     private function setId(){
         $this->attributes["id"] = $this->getRandomId();
+        
+        echo $this->attributes["id"];
+        exit;
     }
-    // ランダムなID値を生成する
+    
+    /**
+     * ランダムなID値を生成する
+     */
     private function getRandomID()
     {
         $characters = array_merge(
